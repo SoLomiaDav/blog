@@ -34,6 +34,7 @@ $groupData = [
     'namespace' => 'App\Http\Controllers\Blog\Admin',
     'prefix' => 'admin/blog',
 ];
+
 Route::group($groupData, function () {
     //BlogCategory
     $methods = ['index','edit','store','update','create',];
@@ -45,4 +46,13 @@ Route::group($groupData, function () {
     Route::resource('posts', PostController::class)
         ->except(['show'])                               //не робити маршрут для метода show
         ->names('blog.admin.posts');
+
+
 });
+
+Route::group(['prefix' => 'digital_deeper'], function (){
+   Route::get('collections', [DiggingDeeperController::class, 'collections'])
+       -> name('digging_deeper.collections');
+});
+
+Route::get('api/blog/posts', [\App\Http\Controllers\Api\Blog\PostController::class, 'index']);
